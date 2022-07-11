@@ -12,24 +12,24 @@ var Shaker = (() => {
     const telError = document.getElementById('tel-error');
     const emailError = document.getElementById('email-error');
     const messageError = document.getElementById('message-error');
+    const submitError = document.getElementById('submit-error');
 
 
-    form.elements['name'].onkeyup = function(e) {
-      validateName(e)
+    form.elements['name'].onkeyup = function() {
+      validateName()
     }
-    form.elements['tel'].onkeyup = function(e) {
-      validateTel(e)
+    form.elements['tel'].onkeyup = function() {
+      validateTel()
     }
-    form.elements['email'].onkeyup = function(e) {
-      validateEmail(e)
+    form.elements['email'].onkeyup = function() {
+      validateEmail()
     }
-    form.elements['message'].onkeyup = function(e) {
-      validateMessage(e)
+    form.elements['message'].onkeyup = function() {
+      validateMessage()
     }
 
-    function validateName(e) {
-      const { target } = e;
-      targetVal = target.value;
+    function validateName() {
+      targetVal = form.elements['name'].value;
 
       // si la longueur de la valeur est de 0
       if(targetVal.length == 0) {
@@ -47,9 +47,8 @@ var Shaker = (() => {
       return true;
     }
 
-    function validateTel(e) {
-      const { target } = e;
-      targetVal = target.value;
+    function validateTel() {
+      targetVal = form.elements['tel'].value;
 
       if(targetVal.length == 0) {
         telError.innerHTML = "numéro de téléphone requis";
@@ -70,9 +69,8 @@ var Shaker = (() => {
       return true;
     }
 
-    function validateEmail(e) {
-      const { target } = e;
-      targetVal = target.value;
+    function validateEmail() {
+      targetVal = form.elements['email'].value;
 
       if (targetVal.length == 0) {
         emailError.innerHTML = 'Email requis';
@@ -88,9 +86,8 @@ var Shaker = (() => {
       return true;
     }
 
-    function validateMessage(e) {
-      const { target } = e;
-      targetVal = target.value;
+    function validateMessage() {
+      targetVal = form.elements['message'].value;
 
       var required = 30;
       var left = required - targetVal.length;
@@ -102,6 +99,15 @@ var Shaker = (() => {
 
       messageError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
       return true;
+    }
+    
+    form.onsubmit = function() {
+      if(!validateName() || !validateTel() || !validateEmail() || !validateMessage()) {
+        submitError.style.display ='block';
+        submitError.innerHTML = 'veuillez corriger ces erreurs pour soumettre';
+        setTimeout(function(){ submitError.style.display = 'none'; }, 3000)
+        return false
+      }
     }
   }
   
