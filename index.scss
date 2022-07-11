@@ -53,11 +53,10 @@
     margin: .625rem 0;
     position: relative;
 }
-.input-group label{
-    flex-basis: 28%;
-}
+
 .input-group input, .input-group textarea{
     flex-basis: 68%;
+    margin: 0 auto;
     background: transparent;
     border: 0;
     outline: 0;
