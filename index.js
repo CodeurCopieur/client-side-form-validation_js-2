@@ -13,14 +13,15 @@ var Shaker = (() => {
     const emailError = document.getElementById('email-error');
     const messageError = document.getElementById('message-error');
 
-    console.log(form, nameError, telError, emailError, messageError, form.elements[0]);
-
 
     form.elements['name'].onkeyup = function(e) {
       validateName(e)
     }
     form.elements['tel'].onkeyup = function(e) {
       validateTel(e)
+    }
+    form.elements['email'].onkeyup = function(e) {
+      validateEmail(e)
     }
 
     function validateName(e) {
@@ -29,13 +30,13 @@ var Shaker = (() => {
 
       // si la longueur de la valeur est de 0
       if(targetVal.length == 0) {
-        nameError.innerHTML = 'Le nom est requis';
+        nameError.innerHTML = 'Nom est requis';
         return false;
       }
 
       // si la valeur ne match pas avec la regex
       if(!targetVal.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)) {
-        nameError.innerHTML = 'Ecrire le nom complet';
+        nameError.innerHTML = 'Nom complet';
         return false;
       } 
 
@@ -48,7 +49,7 @@ var Shaker = (() => {
       targetVal = target.value;
 
       if(targetVal.length == 0) {
-        telError.innerHTML = "numéro de téléphone est requis";
+        telError.innerHTML = "numéro de téléphone requis";
         return false;
       }
 
@@ -63,6 +64,24 @@ var Shaker = (() => {
       }
 
       telError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+      return true;
+    }
+
+    function validateEmail(e) {
+      const { target } = e;
+      targetVal = target.value;
+
+      if (targetVal.length == 0) {
+        emailError.innerHTML = 'Email requis';
+        return false;
+      }
+
+      if(!targetVal.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+        emailError.innerHTML = 'Email invalid';
+        return false;
+      }
+
+      emailError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
       return true;
     }
   }
