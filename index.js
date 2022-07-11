@@ -23,6 +23,9 @@ var Shaker = (() => {
     form.elements['email'].onkeyup = function(e) {
       validateEmail(e)
     }
+    form.elements['message'].onkeyup = function(e) {
+      validateMessage(e)
+    }
 
     function validateName(e) {
       const { target } = e;
@@ -82,6 +85,22 @@ var Shaker = (() => {
       }
 
       emailError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+      return true;
+    }
+
+    function validateMessage(e) {
+      const { target } = e;
+      targetVal = target.value;
+
+      var required = 30;
+      var left = required - targetVal.length;
+
+      if(left > 0 ) {
+        messageError.innerHTML = left + ' caractères requis'
+        return false;
+      }
+
+      messageError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
       return true;
     }
   }
